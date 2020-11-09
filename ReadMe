@@ -1,0 +1,12 @@
+Objective – We need to create APIs for performing CRUD operations on Customers and add all relevant test cases.
+Assume Customers belong to an Organization. This test application has an API to add Organizations
+which can be accessed from swagger.
+
+Once this Spring Boot Application is started you can access the h2 database using the 
+url:http://localhost:8080/h2-console
+username: sa
+password: 
+
+Swagger can be accessed using the 
+url: http://localhost:8080/swagger-ui.html
+
