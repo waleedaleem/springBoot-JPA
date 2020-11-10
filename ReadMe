@@ -1,12 +1,20 @@
-Objective – We need to create APIs for performing CRUD operations on Customers and add all relevant test cases.
-Assume Customers belong to an Organization. This test application has an API to add Organizations
-which can be accessed from swagger.
+This SpringBoot application has an Organizations POST API which adds Organizations to the
+Organizations Table. Once this Spring Boot Application is started you can access the h2 database and
+the API through swagger using the following information.
 
-Once this Spring Boot Application is started you can access the h2 database using the 
 url:http://localhost:8080/h2-console
 username: sa
 password: 
 
-Swagger can be accessed using the 
+Swagger can be accessed using the
 url: http://localhost:8080/swagger-ui.html
+
+Objective:
+1) In the OrganizationsService make changes to the service to include the check for null or empty organization name.
+In the OrganizationServiceTest testSaveAllOrganizationsInvalidOrgName() checks whether the name is valid or not.
+Make sure this testMethod is testing the the organization name.
+
+2) Create Add Customers API to add Customers to a given organization and test cases to test this API.
+
+3) Create List Customers API in a given organization and add test cases to test this API.
 

@@ -1,7 +1,7 @@
 package com.example.five9demo.controllers;
 
 import com.example.five9demo.requests.OrganizationRequest;
-import com.example.five9demo.services.OrganizationService;
+import com.example.five9demo.services.OrganizationsService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ class OrganizationsControllerTest {
     @Mock
     Logger LOGGER;
     @Mock
-    OrganizationService organizationService;
+    OrganizationsService organizationService;
     @InjectMocks
     OrganizationsController organizationsController;
 
@@ -26,9 +26,14 @@ class OrganizationsControllerTest {
 
     @Test
     void testAddOrganizations() {
+
         ResponseEntity<?> result = organizationsController.addOrganizations(null, new OrganizationRequest());
+
         Assertions.assertNotNull(result);
         Assertions.assertTrue(result.getStatusCode().is2xxSuccessful());
+
     }
+
+
 }
 
