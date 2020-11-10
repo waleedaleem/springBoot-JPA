@@ -3,6 +3,7 @@ Organizations Table. Once this Spring Boot Application is started you can access
 the API through swagger using the following information.
 
 url:http://localhost:8080/h2-console
+JDBC URL: jdbc:h2:mem:five9
 username: sa
 password: 
 
