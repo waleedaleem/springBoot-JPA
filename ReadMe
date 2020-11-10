@@ -18,3 +18,4 @@ Make sure this testMethod is testing the the organization name.
 
 3) Create List Customers API in a given organization and add test cases to test this API.
 
+4) Create Update Customers API in a given organization and add test cases to test this API.
