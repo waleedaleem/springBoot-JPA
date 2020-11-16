@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
 
 @RestController
-@RequestMapping(value = {"/testapp/five9.com/organization-service/v1"})
+@RequestMapping(value = {"/testapp/test.com/organization-service/v1"})
 @Api(tags = {"Organization Services"})
 public class OrganizationsController {
 
