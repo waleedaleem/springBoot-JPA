@@ -21,6 +21,5 @@ documentation, or anything else that you think would improve the overall quality
 Objectives:
 1. In the OrganizationsService make changes to the service to include the check for null or empty organization name.
 Note that `testSaveAllOrganizationsInvalidOrgName()` checks whether the name is valid or not.
-1. Create Add Customers API to add Customers to a given organization
 1. Create List Customers API in a given organization
 1. Create Update Customers API in a given organization
