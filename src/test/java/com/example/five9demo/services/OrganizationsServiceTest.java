@@ -65,7 +65,6 @@ class OrganizationsServiceTest {
     void testSaveAllOrganizationsInvalidOrgName() {
         try{
             this.organization.setName("");
-            this.organizations.add(organization);
             this.organizationRequest.setOrganizations(organizations);
             organizationsService.saveAllOrganizations(organizationRequest);
         } catch (Exception e){
