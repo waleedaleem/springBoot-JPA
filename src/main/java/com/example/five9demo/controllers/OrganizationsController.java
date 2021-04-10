@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,12 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotBlank;
 import javax.ws.rs.core.Context;
 import java.util.Set;
 
 @RestController
 @RequestMapping(value = {"/testapp/test.com/organization-service/v1"})
 @Api(tags = {"Organization Services"})
+@Validated
 public class OrganizationsController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationsController.class);
@@ -58,7 +61,7 @@ public class OrganizationsController {
             value = "List organization customers",
             notes = "This API will list organization customers")
     public ResponseEntity<Set<Customer>> listOrganizationCustomers(@Context HttpServletRequest request,
-                                                                   @PathVariable String organizationName) {
+                                                                   @PathVariable @NotBlank String organizationName) {
         Set<Customer> organizationCustomers = organizationsService.getOrganizationCustomers(
                 organizationName.toUpperCase());
         return ResponseEntity.ok(organizationCustomers);

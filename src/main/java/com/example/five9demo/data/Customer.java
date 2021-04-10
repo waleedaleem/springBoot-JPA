@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.querydsl.core.annotations.QueryEntity;
 
 import lombok.Data;
@@ -21,6 +22,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "customers")
 @QueryEntity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = -6433721069248439325L;

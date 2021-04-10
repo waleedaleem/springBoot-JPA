@@ -1,6 +1,7 @@
 package com.example.five9demo.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.querydsl.core.annotations.QueryEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,6 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "organizations")
 @QueryEntity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Organization implements Serializable {
 
     private static final long serialVersionUID = -6433721069248439324L;
