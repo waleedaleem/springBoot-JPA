@@ -14,11 +14,15 @@ import com.querydsl.core.annotations.QueryEntity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Entity
 @Table(name = "customers")
 @QueryEntity
-public class Customer {
+public class Customer implements Serializable {
+
+    private static final long serialVersionUID = -6433721069248439325L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
