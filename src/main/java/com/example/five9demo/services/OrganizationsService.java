@@ -40,7 +40,7 @@ public class OrganizationsService implements Serializable {
      */
     public Set<Customer> getOrganizationCustomers(String organizationName) {
         if (!StringUtils.hasText(organizationName)) {
-            throw new IllegalArgumentException("organizationName can not be blank");
+            throw new IllegalArgumentException("organization name can not be blank");
         }
 
         return customerRepository.findAllByOrganizationName(organizationName);
