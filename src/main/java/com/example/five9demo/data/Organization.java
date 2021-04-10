@@ -5,6 +5,8 @@ import com.querydsl.core.annotations.QueryEntity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -15,7 +17,10 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Integer id;
+
+    @Column(unique = true)
     private String name;
 
-
+    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+    private Set<Customer> customers = new HashSet<>();
 }
