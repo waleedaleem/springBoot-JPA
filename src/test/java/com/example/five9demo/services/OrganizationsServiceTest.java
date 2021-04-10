@@ -26,9 +26,9 @@ import java.util.stream.Stream;
 import static com.example.five9demo.data.Organization.INVALID_NAME_ERROR;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class OrganizationServiceTest {
+class OrganizationsServiceTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(OrganizationServiceTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(OrganizationsServiceTest.class);
 
     private static Validator validator;
 
@@ -67,7 +67,7 @@ class OrganizationServiceTest {
         try{
             organizationsService.saveAllOrganizations(null);
         } catch (Exception e){
-            Assertions.assertEquals(e.getMessage(),"Invalid request");
+            Assertions.assertEquals("Invalid request", e.getMessage());
         }
     }
 

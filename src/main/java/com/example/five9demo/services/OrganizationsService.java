@@ -18,8 +18,8 @@ public class OrganizationsService implements Serializable {
 
     public void saveAllOrganizations(OrganizationRequest organizationRequest) throws Exception {
 
-        if(null == organizationRequest ||
-                organizationRequest != null && CollectionUtils.isEmpty(organizationRequest.getOrganizations())){
+        if (null == organizationRequest
+                || CollectionUtils.isEmpty(organizationRequest.getOrganizations())) {
             throw new Exception("Invalid request");
         }
         List<Organization> organizations = organizationRequest.getOrganizations();

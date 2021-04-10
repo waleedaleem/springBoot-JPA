@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import javax.ws.rs.core.Context;
 
 @RestController
-@RequestMapping(value = {"/testapp/test.com/organization-service/v1"})
+@RequestMapping(value = "${service.base.url}")
 @Api(tags = {"Organization Services"})
 public class OrganizationsController {
 
@@ -31,8 +32,11 @@ public class OrganizationsController {
 
     @PostMapping(path = "/organizations")
     @ApiOperation(tags = "Organization Services", value ="Add organizations", notes = "This API will create/add organizations")
-    public ResponseEntity<OrganizationResponse> addOrganizations(@Context HttpServletRequest request, @RequestBody OrganizationRequest organizationRequest){
-        logger.debug("Received addOrganizations request {}", organizationRequest.toJson());
+    public ResponseEntity<OrganizationResponse> addOrganizations(@Context HttpServletRequest request,
+                                                                 @RequestBody @Valid OrganizationRequest organizationRequest) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Received addOrganizations request {}", organizationRequest.toJson());
+        }
         ResponseEntity<OrganizationResponse> response;
         OrganizationResponse organizationResponse;
         try{
