@@ -13,15 +13,15 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-class OrganizationServiceTest {
+class OrganizationsServiceTest {
     @Mock
     OrganizationRepository organizationRepository;
     @InjectMocks
     OrganizationsService organizationsService;
 
-    private Organization organization = new Organization();
-    private List<Organization> organizations = new ArrayList<>();
-    private OrganizationRequest organizationRequest = new OrganizationRequest();
+    private final Organization organization = new Organization();
+    private final List<Organization> organizations = new ArrayList<>();
+    private final OrganizationRequest organizationRequest = new OrganizationRequest();
 
     @BeforeEach
     void setUp() {
@@ -39,23 +39,23 @@ class OrganizationServiceTest {
     }
 
     @Test
-    void testSaveAllOrganizationsNullRequest() throws Exception {
+    void testSaveAllOrganizationsNullRequest() {
         try{
             organizationsService.saveAllOrganizations(null);
         } catch (Exception e){
-            Assertions.assertEquals(e.getMessage(),"Invalid request");
+            Assertions.assertEquals("Invalid request", e.getMessage());
         }
     }
 
     @Test
-    void testSaveAllOrganizationsInvalidOrgName() throws Exception {
+    void testSaveAllOrganizationsInvalidOrgName() {
         try{
             this.organization.setName("");
             this.organizations.add(organization);
             this.organizationRequest.setOrganizations(organizations);
             organizationsService.saveAllOrganizations(organizationRequest);
         } catch (Exception e){
-            Assertions.assertEquals(e.getMessage(),"Organization name is invalid");
+            Assertions.assertEquals("Organization name is invalid", e.getMessage());
         }
     }
 }
