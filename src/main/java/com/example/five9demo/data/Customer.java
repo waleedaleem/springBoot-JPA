@@ -1,5 +1,6 @@
 package com.example.five9demo.data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,9 +30,14 @@ public class Customer implements Serializable {
     @JsonIgnore
     private Integer id;
 
+    @Column(unique = true)
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organization_name", nullable = false, referencedColumnName = "name")
     private Organization organization;
+
+    public void setName(String name) {
+        this.name = name.toUpperCase();
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.five9demo.controllers;
 
+import com.example.five9demo.data.Customer;
 import com.example.five9demo.requests.OrganizationRequest;
 import com.example.five9demo.responses.OrganizationResponse;
 import com.example.five9demo.services.OrganizationsService;
@@ -8,7 +9,10 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = {"/testapp/test.com/organization-service/v1"})
@@ -27,9 +32,13 @@ public class OrganizationsController {
     @Autowired
     private OrganizationsService organizationsService;
 
-    @PostMapping(path = "/organizations")
+    @PostMapping(
+            path = "/organizations",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(tags = "Organization Services", value ="Add organizations", notes = "This API will create/add organizations")
-    public ResponseEntity<?> addOrganizations(@Context HttpServletRequest request, @RequestBody OrganizationRequest organizationRequest){
+    public ResponseEntity<OrganizationResponse> addOrganizations(@Context HttpServletRequest request,
+                                                                 @RequestBody OrganizationRequest organizationRequest) {
 
         OrganizationResponse organizationResponse = new OrganizationResponse();
         try{
@@ -41,6 +50,17 @@ public class OrganizationsController {
         return ResponseEntity.ok(organizationResponse);
     }
 
-
-
+    @GetMapping(
+            path = "/organizations/{organizationName}/customers",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(
+            tags = "Organization Services",
+            value = "List organization customers",
+            notes = "This API will list organization customers")
+    public ResponseEntity<Set<Customer>> listOrganizationCustomers(@Context HttpServletRequest request,
+                                                                   @PathVariable String organizationName) {
+        Set<Customer> organizationCustomers = organizationsService.getOrganizationCustomers(
+                organizationName.toUpperCase());
+        return ResponseEntity.ok(organizationCustomers);
+    }
 }

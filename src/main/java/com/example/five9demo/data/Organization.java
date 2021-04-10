@@ -28,5 +28,10 @@ public class Organization implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Customer> customers = new HashSet<>();
+
+    public void setName(String name) {
+        this.name = name.toUpperCase();
+    }
 }
