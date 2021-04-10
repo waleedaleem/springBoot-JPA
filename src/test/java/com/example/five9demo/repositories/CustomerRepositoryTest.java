@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Collections;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -23,7 +22,7 @@ class CustomerRepositoryTest {
     @Test
     public void findByOrganizationName_MatchExists() {
         final String hr = "HR";
-        Set<Customer> hrCustomers = customerRepository.findByOrganizationName(hr);
+        Set<Customer> hrCustomers = customerRepository.findAllByOrganizationName(hr);
 
         // verify all returned customers are "HR"
         assertFalse(hrCustomers.removeIf(customer -> !hr.equals(customer.getOrganization().getName())));
@@ -32,7 +31,7 @@ class CustomerRepositoryTest {
     @Test
     public void findByOrganizationName_MatchNotExists() {
         final String bogusName = "blah";
-        Set<Customer> hrCustomers = customerRepository.findByOrganizationName(bogusName);
+        Set<Customer> hrCustomers = customerRepository.findAllByOrganizationName(bogusName);
 
         // verify no customers are returned
         assertTrue(hrCustomers.isEmpty());

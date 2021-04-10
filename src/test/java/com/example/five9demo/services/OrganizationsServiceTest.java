@@ -58,7 +58,5 @@ class OrganizationServiceTest {
             Assertions.assertEquals(e.getMessage(),"Organization name is invalid");
         }
     }
-
-
 }
 

@@ -7,5 +7,5 @@ import java.util.Set;
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-    Set<Customer> findByOrganizationName(String organizationName);
+    Set<Customer> findAllByOrganizationName(String organizationName);
 }
