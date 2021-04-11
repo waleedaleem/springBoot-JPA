@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,6 +29,7 @@ import javax.ws.rs.core.Context;
 @RestController
 @RequestMapping(value = {"/testapp/test.com/organization-service/v1"})
 @Api(tags = {"Organization Services"})
+@Validated
 public class OrganizationsController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrganizationsController.class);
@@ -66,7 +68,8 @@ public class OrganizationsController {
                                                                            @RequestBody @Valid CustomerDTO updatedCustomer) {
         if (logger.isDebugEnabled()) {
             logger.debug(
-                    "Received updateOrganizationCustomer request {}", updatedCustomer.toJson());
+                    "Received updateOrganizationCustomer request. Path: {}, Body: {}",
+                    request.getRequestURI(), updatedCustomer.toJson());
         }
 
         // provide an idempotent interface by skipping redundant requests processing

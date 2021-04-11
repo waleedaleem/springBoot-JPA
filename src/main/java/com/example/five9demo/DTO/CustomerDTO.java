@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.Data;
+import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotBlank;
 
@@ -33,11 +34,15 @@ public class CustomerDTO {
     private CustomerDTO oldInstance;
 
     public void setName(String name) {
-        this.name = name.toUpperCase();
+        if (StringUtils.hasText(name)) {
+            this.name = name.toUpperCase();
+        }
     }
 
     public void setOrganizationName(String organizationName) {
-        this.organizationName = organizationName.toUpperCase();
+        if (StringUtils.hasText(organizationName)) {
+            this.organizationName = organizationName.toUpperCase();
+        }
     }
 
     public CustomerDTO withOldInstance(String oldName, String oldOrganizationName) {
