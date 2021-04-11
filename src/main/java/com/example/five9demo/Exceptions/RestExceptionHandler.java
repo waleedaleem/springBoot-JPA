@@ -29,7 +29,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {
-        ConstraintViolationException.class, IllegalArgumentException.class
+        ConstraintViolationException.class, IllegalArgumentException.class,
+        IllegalStateException.class
     })
     protected ResponseEntity<Object> handleBadRequest(RuntimeException ex, WebRequest request) {
         OrganizationResponse response = new OrganizationResponse();

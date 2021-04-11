@@ -8,4 +8,6 @@ import java.util.Set;
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     Set<Customer> findByOrganizationName(String organizationName);
+
+    Customer findByNameAndOrganizationName(String name, String organizationName);
 }
