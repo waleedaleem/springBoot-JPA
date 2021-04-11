@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.ws.rs.core.Context;
 
@@ -61,14 +63,20 @@ public class OrganizationsController {
     public ResponseEntity<OrganizationResponse> updateOrganizationCustomer(@Context HttpServletRequest request,
                                                                            @PathVariable @NotBlank String organizationName,
                                                                            @PathVariable @NotBlank String customerName,
-                                                                           @RequestBody CustomerDTO updatedCustomer) {
+                                                                           @RequestBody @Valid CustomerDTO updatedCustomer) {
         if (logger.isDebugEnabled()) {
             logger.debug(
                     "Received updateOrganizationCustomer request {}", updatedCustomer.toJson());
         }
 
-        organizationsService.updateOrganizationCustomer(
-                organizationName, customerName, updatedCustomer);
+        // provide an idempotent interface by skipping redundant requests processing
+        if (!upToDate(
+                organizationName, customerName, updatedCustomer.getOrganizationName(),
+                updatedCustomer.getName())) {
+            organizationsService.updateOrganizationCustomer(
+                    organizationName, customerName, updatedCustomer);
+        }
+
         OrganizationResponse organizationResponse = new OrganizationResponse(
                 HttpStatus.OK.getReasonPhrase(), String.valueOf(HttpStatus.OK.value()),
                 "customer updated");
@@ -80,5 +88,15 @@ public class OrganizationsController {
                     organizationResponse.toJson());
         }
         return response;
+    }
+
+    private boolean upToDate(String oldOrganizationName,
+                             String oldCustomerName,
+                             String newOrganizationName,
+                             String newCustomerName) {
+        return StringUtils.hasText(oldOrganizationName)
+                && oldOrganizationName.equalsIgnoreCase(newOrganizationName)
+                && StringUtils.hasText(oldCustomerName)
+                && oldCustomerName.equalsIgnoreCase(newCustomerName);
     }
 }
