@@ -1,4 +1,4 @@
-package com.example.five9demo.data;
+package com.example.five9demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;

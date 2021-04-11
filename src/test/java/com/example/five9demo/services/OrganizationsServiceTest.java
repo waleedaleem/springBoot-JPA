@@ -1,6 +1,6 @@
 package com.example.five9demo.services;
 
-import com.example.five9demo.data.Organization;
+import com.example.five9demo.entities.Organization;
 import com.example.five9demo.repositories.OrganizationRepository;
 import com.example.five9demo.requests.OrganizationRequest;
 import org.junit.jupiter.api.Assertions;
@@ -32,14 +32,14 @@ class OrganizationServiceTest {
     }
 
     @Test
-    void testSaveAllOrganizationsValidRequest() throws Exception {
+    void testSaveAllOrganizationsValidRequest() {
 
         organizationsService.saveAllOrganizations(organizationRequest);
 
     }
 
     @Test
-    void testSaveAllOrganizationsNullRequest() throws Exception {
+    void testSaveAllOrganizationsNullRequest() {
         try{
             organizationsService.saveAllOrganizations(null);
         } catch (Exception e){
@@ -48,7 +48,7 @@ class OrganizationServiceTest {
     }
 
     @Test
-    void testSaveAllOrganizationsInvalidOrgName() throws Exception {
+    void testSaveAllOrganizationsInvalidOrgName() {
         try{
             this.organization.setName("");
             this.organizations.add(organization);
@@ -58,7 +58,5 @@ class OrganizationServiceTest {
             Assertions.assertEquals(e.getMessage(),"Organization name is invalid");
         }
     }
-
-
 }
 
