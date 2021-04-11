@@ -25,12 +25,12 @@ import javax.ws.rs.core.Context;
 import java.util.Set;
 
 @RestController
-@RequestMapping(value = {"/testapp/test.com/organization-service/v1"})
+@RequestMapping(value = "${service.base.url}")
 @Api(tags = {"Organization Services"})
 @Validated
 public class OrganizationsController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationsController.class);
+    private static final Logger logger = LoggerFactory.getLogger(OrganizationsController.class);
 
     @Autowired
     private OrganizationsService organizationsService;
@@ -62,8 +62,22 @@ public class OrganizationsController {
             notes = "This API will list organization customers")
     public ResponseEntity<Set<Customer>> listOrganizationCustomers(@Context HttpServletRequest request,
                                                                    @PathVariable @NotBlank String organizationName) {
+        if (logger.isDebugEnabled()) {
+            logger.debug(
+                    "Received listOrganizationCustomers request. Path: {}",
+                    request.getRequestURI());
+        }
+
         Set<Customer> organizationCustomers = organizationsService.getOrganizationCustomers(
                 organizationName.toUpperCase());
-        return ResponseEntity.ok(organizationCustomers);
+        ResponseEntity<Set<Customer>> response = ResponseEntity.ok(organizationCustomers);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug(
+                    "Processed listOrganizationCustomers request successfully. organizationName: {}",
+                    organizationName);
+        }
+
+        return response;
     }
 }
